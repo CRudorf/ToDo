@@ -9,8 +9,9 @@ from app.forms import LoginForm, RegistrationForm
 from .models import Todo, User
 
 
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
+@login_required
 def home():
     todo_list = Todo.query.order_by(Todo.due_date)
     return render_template("index.html", todo_list=todo_list)
