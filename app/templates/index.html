@@ -36,12 +36,4 @@
             {% endfor %}
         </ul>
     </div>
-    <script>
-        var $sortables = $("#theSortableStuff").sortable({
-          stop: function() {
-            var sortedItems = $sortables.sortable("toArray");
-            // Update some form in the DOM or use AJAX to invoke a server-side update
-          }
-        });
-    </script>
 {% endblock %}
