@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">To Do App</h1>
+
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <label>Todo Title</label>
+                <input type="text" name="title" placeholder="Enter Task..."><br>
+                <label>Due Date</label>
+                <input type="date" name="due_date" placeholder="Enter Due Date..."><br>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+        <ul id="sortable">
+            {% for todo in todo_list %}
+            <div class="ui segment">
+                <p class="ui big header">
+                    <li class="ui-widget-content">
+                    {% if todo.status == False %}
+                <b> {{ todo.title }} </b> | {{ todo.due_date }}
+
+                    {% else %}
+                <strike><b> {{ todo.title }} </b> | {{ todo.due_date }}</strike>
+                    {% endif %}
+                    </li>
+
+                <a class="btn btn-success" href="/update/{{ todo.id }}">Mark As Complete</a>
+                <a class="btn btn-warning" href="/edit/{{ todo.id }}">Edit (WIP)</a>
+                <a class="btn btn-danger" href="/delete/{{ todo.id }}">Delete</a>
+                </p>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        var $sortables = $("#theSortableStuff").sortable({
+          stop: function() {
+            var sortedItems = $sortables.sortable("toArray");
+            // Update some form in the DOM or use AJAX to invoke a server-side update
+          }
+        });
+    </script>
+{% endblock %}
